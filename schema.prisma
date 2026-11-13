@@ -1,0 +1,86 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CompetencyUnit {
+  id          Int      @id @default(autoincrement())
+  code        String   @unique
+  title       String
+  category    String   // Basic, Common, Core
+  description String?
+  modules     Module[]
+  quizzes     Quiz[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Module {
+  id          Int      @id @default(autoincrement())
+  unitId      Int
+  unit        CompetencyUnit @relation(fields: [unitId], references: [id])
+  title       String
+  order       Int
+  lessons     Lesson[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Lesson {
+  id          Int      @id @default(autoincrement())
+  moduleId    Int
+  module      Module   @relation(fields: [moduleId], references: [id])
+  title       String
+  content     Json     // Rich content: discussion, key concepts, instructions
+  mediaUrl    String?  // Video/Image URL
+  resources   Json?    // PDF links, worksheets
+  order       Int
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Quiz {
+  id          Int      @id @default(autoincrement())
+  unitId      Int
+  unit        CompetencyUnit @relation(fields: [unitId], references: [id])
+  title       String
+  questions   Question[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Question {
+  id          Int      @id @default(autoincrement())
+  quizId      Int
+  quiz        Quiz     @relation(fields: [quizId], references: [id])
+  type        String   // MultipleChoice, TrueFalse, Identification, Enumeration, Situational
+  text        String
+  options     Json?    // For multiple choice
+  answer      String
+  explanation String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Admin {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  passwordHash String
+  name        String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Certificate {
+  id          String   @id @default(cuid())
+  fullName    String
+  completionDate DateTime @default(now())
+  referenceNumber String @unique
+  progress    Json     // Summary of completed units
+  createdAt   DateTime @default(now())
+}

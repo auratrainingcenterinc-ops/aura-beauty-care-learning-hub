@@ -1,0 +1,127 @@
+// Global CSS with Aura Beauty Care theme
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Aura Beauty Care Theme */
+:root {
+  --aura-purple: #6B46C1;
+  --aura-lavender: #E0E7FF;
+  --aura-white: #FFFFFF;
+  --aura-dark: #1E1B4B;
+  --aura-accent: #A78BFA;
+}
+
+/* Mobile-first responsive design */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--aura-white);
+  color: var(--aura-dark);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Navigation */
+.navbar {
+  @apply bg-aura-purple text-white py-4 px-6 shadow-md;
+}
+
+.nav-link {
+  @apply text-aura-lavender hover:text-white transition-colors font-semibold;
+}
+
+/* Buttons */
+.btn-primary {
+  @apply bg-aura-purple text-white px-6 py-3 rounded-lg font-bold hover:bg-aura-accent transition-colors shadow-md;
+}
+
+.btn-secondary {
+  @apply bg-aura-lavender text-aura-purple px-6 py-3 rounded-lg font-bold hover:bg-aura-purple/20 transition-colors;
+}
+
+/* Cards */
+.course-card {
+  @apply bg-white rounded-xl shadow-md p-6 border-t-4 border-aura-purple hover:shadow-xl transition-shadow;
+}
+
+/* Lesson Viewer */
+.lesson-content {
+  @apply prose prose-purple max-w-none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .mobile-nav {
+    @apply fixed bottom-0 left-0 right-0 bg-white shadow-lg py-4 px-6 flex justify-around items-center;
+  }
+  
+  .desktop-sidebar {
+    @apply hidden;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav {
+    @apply hidden;
+  }
+  
+  .desktop-sidebar {
+    @apply block;
+  }
+}
+
+/* Certificate Preview */
+.certificate-preview {
+  @apply bg-white border-4 border-aura-purple p-8 max-w-2xl mx-auto shadow-2xl;
+}
+
+/* Quiz Interface */
+.quiz-question {
+  @apply border border-gray-200 rounded-lg p-6 mb-4;
+}
+
+/* Progress Bar */
+.progress-bar {
+  @apply w-full bg-gray-200 rounded-full h-4 overflow-hidden;
+}
+
+.progress-fill {
+  @apply h-4 bg-aura-purple transition-all duration-500;
+}
+
+/* Admin Panel */
+.admin-sidebar {
+  @apply fixed left-0 top-0 h-screen w-64 bg-aura-dark text-white flex flex-col;
+}
+
+.admin-content {
+  @apply md:ml-64 min-h-screen bg-gray-50;
+}
+
+/* TESDA Disclaimer */
+.disclaimer {
+  @apply bg-aura-dark text-white py-4 px-6 text-sm italic text-center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .mobile-first-container {
+    @apply p-4;
+  }
+  
+  .desktop-only {
+    @apply hidden;
+  }
+}
+
+@media (min-width: 641px) {
+  .mobile-first-container {
+    @apply p-8 max-w-6xl mx-auto;
+  }
+  
+  .desktop-only {
+    @apply block;
+  }
+}
